@@ -1,106 +1,52 @@
 "use client";
-import React from 'react';
-import { Box, Typography, Button, Container, Grid } from '@mui/material';
-import { styled } from '@mui/system';
 
-// Super-modern glass card
-const GlassCard = styled(Box)(({ theme }) => ({
-  background: 'rgba(255, 255, 255, 0.05)',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  backdropFilter: 'blur(20px)',
-  borderRadius: '20px',
-  padding: '30px',
-  boxShadow: '0 0 20px rgba(0,255,255,0.1)',
-  transition: '0.3s ease',
-  '&:hover': {
-    boxShadow: '0 0 40px rgba(0,255,255,0.2)',
-    transform: 'scale(1.02)',
-  },
-}));
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-const GradientBox = styled(Box)({
-  minHeight: '100vh',
-  background: 'radial-gradient(circle at top left, #0f2027, #203a43, #2c5364)',
-  color: '#ffffff',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  textAlign: 'center',
-  padding: '40px 20px',
-});
-
-const NeonButton = styled(Button)({
-  background: 'transparent',
-  border: '2px solid #00e5ff',
-  color: '#00e5ff',
-  padding: '12px 30px',
-  borderRadius: '50px',
-  fontWeight: 'bold',
-  fontSize: '1rem',
-  marginTop: '30px',
-  transition: '0.3s ease',
-  '&:hover': {
-    background: '#00e5ff',
-    color: '#000',
-  },
-});
-
-const LandingPage = () => {
+export default function LandingPage() {
   return (
-    <GradientBox>
-      <Container maxWidth="md">
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: '900',
-            fontSize: { xs: '2.5rem', md: '4rem' },
-            lineHeight: '1.2',
-            background: 'linear-gradient(to right, #00e5ff, #ff00cc)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
+    <main className="min-h-screen bg-zinc-900 text-white flex flex-col items-center justify-center px-4 py-16">
+      <section className="max-w-3xl text-center">
+        <h1 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-pink-500 bg-clip-text text-transparent">
           Expense Splitting. AI Budgeting. Done Right.
-        </Typography>
-
-        <Typography variant="h6" sx={{ mt: 3, color: '#bbb' }}>
+        </h1>
+        <p className="mt-6 text-zinc-300 text-lg">
           Say goodbye to money stress. Track, split, and optimize your budget using smart AI recommendations.
-        </Typography>
+        </p>
+        <Button className="mt-8 px-6 py-3 rounded-full text-lg font-semibold">
+          Launch Planner
+        </Button>
+      </section>
 
-        <NeonButton href="/app">Launch Planner</NeonButton>
-
-        <Grid container spacing={3} sx={{ mt: 8 }} justifyContent="center">
-
-          {[
-            {
-              title: 'Smart AI Insights',
-              desc: 'Let AI find where you overspend and suggest savings.',
-            },
-            {
-              title: 'Effortless Splitting',
-              desc: 'Split with friends or family, no drama, no math.',
-            },
-            {
-              title: 'Secure + Local',
-              desc: 'Your data stays on your device. Fully private.',
-            },
-          ].map((item, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <GlassCard>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-                  {item.title}
-                </Typography>
-                <Typography variant="body2" sx={{ color: '#ccc' }}>
-                  {item.desc}
-                </Typography>
-              </GlassCard>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </GradientBox>
+      <section className="mt-16 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        {[
+          {
+            title: "Smart AI Insights",
+            desc: "Let AI find where you overspend and suggest savings.",
+          },
+          {
+            title: "Effortless Splitting",
+            desc: "Split with friends or family, no drama, no math.",
+          },
+          {
+            title: "Secure + Local",
+            desc: "Your data stays on your device. Fully private.",
+          },
+        ].map((item, i) => (
+          <Card
+            key={i}
+            className="bg-white/5 border-white/10 border rounded-2xl shadow-md hover:shadow-cyan-500/20 transition duration-300"
+          >
+            <CardContent className="p-6">
+              <h3 className="text-xl font-bold mb-2 text-cyan-400">
+                {item.title}
+              </h3>
+              <p className="text-sm text-zinc-300">{item.desc}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </section>
+    </main>
   );
-};
-
-export default LandingPage;
+}
