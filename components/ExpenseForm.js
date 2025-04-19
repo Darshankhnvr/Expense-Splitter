@@ -35,7 +35,7 @@ export default function ExpenseForm() {
         <h2 className='text-center mb-2 font-bold text-3xl  text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-600'>Enter Your Expenses</h2>
         </div>
         
-    <Card className="rounded-2xl shadow-md max-w-md mx-auto bg-white/5 text-cyan-400 hover:shadow-cyan-500">
+    <Card className="rounded-2xl shadow-md max-w-md mx-auto bg-white/5 text-cyan-400 hover:shadow-cyan-500 mb-25px">
       <CardContent className="p-6 space-y-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
