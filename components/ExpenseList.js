@@ -21,7 +21,7 @@ export default function ExpenseList() {
         const data = await res.json();
         setExpenses(data);
       } catch (err) {
-        setError(err.message);
+        toast.error("Failed to fetch expense!");
       } finally {
         setLoading(false);
       }
@@ -54,8 +54,9 @@ export default function ExpenseList() {
       });
 
       setExpenses(prev => prev.filter(item => item._id !== id));
+      
     } catch (err) {
-      console.error('Failed to delete:', err);
+      toast.error("Failed to delete expense!");
     }
   };
 
@@ -86,7 +87,7 @@ export default function ExpenseList() {
 
       setEditingExpense(null); // Close the modal after updating
     } catch (err) {
-      console.error(err.message);
+      toast.error("Failed to edit expense!");
     }
   };
 

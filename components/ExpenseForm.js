@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
+import { toast } from 'sonner';
 
 export default function ExpenseForm() {
   const [amount, setAmount] = useState('');
@@ -27,6 +28,7 @@ export default function ExpenseForm() {
     setCategory('');
     setDescription('');
     setLoading(false);
+    toast.success("Expense added successfully!")
   };
 
   return (
