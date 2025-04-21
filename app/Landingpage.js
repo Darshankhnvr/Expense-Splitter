@@ -1,8 +1,10 @@
 "use client";
 
+import ExpenseForm from "@/components/ExpenseForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function LandingPage() {
   return (
@@ -14,9 +16,11 @@ export default function LandingPage() {
         <p className="mt-6 text-zinc-300 text-lg">
           Say goodbye to money stress. Track, split, and optimize your budget using smart AI recommendations.
         </p>
+        <Link href={"/planner"}>
         <Button className="mt-8 px-6 py-3 rounded-full text-lg font-semibold">
           Launch Planner
         </Button>
+        </Link>
       </section>
 
       <section className="mt-16 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
@@ -48,5 +52,7 @@ export default function LandingPage() {
         ))}
       </section>
     </main>
+   
+    
   );
 }

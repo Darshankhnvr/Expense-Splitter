@@ -1,9 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Trash2, Pencil } from 'lucide-react'; // Import Pencil icon for editing
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Trash2, Pencil } from "lucide-react"; // Import Pencil icon for editing
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function ExpenseList() {
   const [expenses, setExpenses] = useState([]);
@@ -14,9 +19,9 @@ export default function ExpenseList() {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const res = await fetch('/api/expenses');
+        const res = await fetch("/api/expenses");
         if (!res.ok) {
-          throw new Error('Failed to fetch expenses');
+          throw new Error("Failed to fetch expenses");
         }
         const data = await res.json();
         setExpenses(data);
@@ -50,11 +55,10 @@ export default function ExpenseList() {
   const handleDelete = async (id) => {
     try {
       await fetch(`/api/expenses/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
-      setExpenses(prev => prev.filter(item => item._id !== id));
-      
+      setExpenses((prev) => prev.filter((item) => item._id !== id));
     } catch (err) {
       toast.error("Failed to delete expense!");
     }
@@ -68,21 +72,19 @@ export default function ExpenseList() {
     e.preventDefault();
     try {
       const res = await fetch(`/api/expenses/${editingExpense._id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(editingExpense),
       });
 
-      if (!res.ok) throw new Error('Update failed');
+      if (!res.ok) throw new Error("Update failed");
 
       const updated = await res.json();
 
-      setExpenses(prev =>
-        prev.map((exp) =>
-          exp._id === updated._id ? updated : exp
-        )
+      setExpenses((prev) =>
+        prev.map((exp) => (exp._id === updated._id ? updated : exp))
       );
 
       setEditingExpense(null); // Close the modal after updating
@@ -98,25 +100,34 @@ export default function ExpenseList() {
           Your Expenses
         </h3>
         {expenses.map((expense) => (
-          <Card key={expense._id} className="rounded-2xl shadow-sm bg-zinc-800 text-white hover:shadow-cyan-500">
+          <Card
+            key={expense._id}
+            className="rounded-2xl shadow-sm bg-zinc-800 text-white hover:shadow-cyan-500"
+          >
             <CardContent className="p-4">
               <div className="flex justify-between">
                 <div>
-                  <p className="font-semibold text-lg text-cyan-400">₹{expense.amount}</p>
+                  <p className="font-semibold text-lg text-cyan-400">
+                    ₹{expense.amount}
+                  </p>
                   <p className="text-sm text-gray-300">{expense.category}</p>
                 </div>
                 <div className="text-right space-y-1">
                   {expense.description && (
-                    <p className="text-xs text-gray-300 max-w-[150px]">{expense.description}</p>
+                    <p className="text-xs text-gray-300 max-w-[150px]">
+                      {expense.description}
+                    </p>
                   )}
-                  <Trash2
-                    className="w-5 h-5 text-red-500 cursor-pointer hover:text-red-700"
-                    onClick={() => handleDelete(expense._id)}
-                  />
-                  <Pencil
-                    className="w-5 h-5 text-blue-400 cursor-pointer hover:text-blue-600"
-                    onClick={() => handleEditClick(expense)} // Open modal on click
-                  />
+                  <div className="flex items-end justify-end gap-2">
+                    <Pencil
+                      className="w-5 h-5 text-blue-400 cursor-pointer hover:text-blue-600"
+                      onClick={() => handleEditClick(expense)} // Open modal on click
+                    />
+                    <Trash2
+                      className="w-5 h-5 text-red-500 cursor-pointer hover:text-red-700"
+                      onClick={() => handleDelete(expense._id)}
+                    />
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -125,7 +136,10 @@ export default function ExpenseList() {
       </div>
 
       {/* Modal to edit the selected expense */}
-      <Dialog open={!!editingExpense} onOpenChange={() => setEditingExpense(null)}>
+      <Dialog
+        open={!!editingExpense}
+        onOpenChange={() => setEditingExpense(null)}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Expense</DialogTitle>
@@ -134,7 +148,7 @@ export default function ExpenseList() {
           <form onSubmit={handleUpdate} className="space-y-4">
             <input
               type="number"
-              value={editingExpense?.amount || ''}
+              value={editingExpense?.amount || ""}
               onChange={(e) =>
                 setEditingExpense({ ...editingExpense, amount: e.target.value })
               }
@@ -144,18 +158,24 @@ export default function ExpenseList() {
             />
             <input
               type="text"
-              value={editingExpense?.category || ''}
+              value={editingExpense?.category || ""}
               onChange={(e) =>
-                setEditingExpense({ ...editingExpense, category: e.target.value })
+                setEditingExpense({
+                  ...editingExpense,
+                  category: e.target.value,
+                })
               }
               className="w-full rounded-md p-2 bg-zinc-800 text-white"
               placeholder="Category"
               required
             />
             <textarea
-              value={editingExpense?.description || ''}
+              value={editingExpense?.description || ""}
               onChange={(e) =>
-                setEditingExpense({ ...editingExpense, description: e.target.value })
+                setEditingExpense({
+                  ...editingExpense,
+                  description: e.target.value,
+                })
               }
               className="w-full rounded-md p-2 bg-zinc-800 text-white"
               placeholder="Description"
