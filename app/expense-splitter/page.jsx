@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import LoadingState from '@/components/LoadingState';
+import LoadingState from '../components/LoadingState';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ExpenseSplitter() {
